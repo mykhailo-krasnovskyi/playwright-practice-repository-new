@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+require('dotenv').config();
 
 /**
  * Read environment variables from file.
@@ -18,7 +19,7 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: 4,
+  retries: 1,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -33,10 +34,10 @@ export default defineConfig({
     // trace: 'on',
     // video: 'on',
     // screenshot: 'on'
-    baseURL: 'https://qauto.forstudy.space/',
+    baseURL: process.env.BASE_URL,
     httpCredentials: {
-      'username': 'guest',
-      'password': 'welcome2qauto'
+      'username': process.env.HTTP_CREDENTIALS_USERNAME!,
+      'password': process.env.HTTP_CREDENTIALS_PASSWORD!
     },
   },
 
