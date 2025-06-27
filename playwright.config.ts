@@ -23,7 +23,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: "allure-playwright",
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -35,6 +35,8 @@ export default defineConfig({
     // video: 'on',
     // screenshot: 'on'
     baseURL: process.env.BASE_URL,
+    video: 'retain-on-failure',
+    trace: 'retain-on-failure',
     httpCredentials: {
       'username': process.env.HTTP_CREDENTIALS_USERNAME!,
       'password': process.env.HTTP_CREDENTIALS_PASSWORD!
@@ -43,9 +45,19 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+
+    {
+      name: 'setup',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: '*/setup/**.ts'
+
+    },
     {
       name: 'smoke',
       use: { ...devices['Desktop Chrome'] },
+      testIgnore: '*/setup/**.ts',
+      dependencies: ['setup']
+
     },
 
     // {

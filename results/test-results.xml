@@ -1,0 +1,18 @@
+<testsuites id="" name="" tests="7" failures="0" skipped="0" errors="0" time="25.424388999999998">
+<testsuite name="signIn.spec.ts" timestamp="2025-06-23T17:10:59.843Z" hostname="smoke" tests="7" failures="0" skipped="0" time="24.294" errors="0">
+<testcase name="With POM › Successful sign in" classname="signIn.spec.ts" time="3.728">
+</testcase>
+<testcase name="With POM › Sign in without email" classname="signIn.spec.ts" time="2.466">
+</testcase>
+<testcase name="With POM › Sign in without password" classname="signIn.spec.ts" time="2.477">
+</testcase>
+<testcase name="With POM › Sign in with incorrect email" classname="signIn.spec.ts" time="2.415">
+</testcase>
+<testcase name="Without POM › Sign in tests › Successful sign in" classname="signIn.spec.ts" time="4.466">
+</testcase>
+<testcase name="Without POM › Sign in tests › Successful sign in 2" classname="signIn.spec.ts" time="4.38">
+</testcase>
+<testcase name="Without POM › Sign in tests › Successful sign in 3" classname="signIn.spec.ts" time="4.362">
+</testcase>
+</testsuite>
+</testsuites>

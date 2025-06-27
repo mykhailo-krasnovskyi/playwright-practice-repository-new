@@ -11,13 +11,19 @@ test.describe('With POM', () => {
     test.beforeEach((async ({ page }) => {
         homePage = new HomePage(page);
         signInForm = new SignInForm(page);
-        await homePage.open();
-        await homePage.clickSignInButton();
+        await test.step('Open Home Page and Sign in', async () => {
+            await homePage.open();
+            await homePage.clickSignInButton();
+        })
+
     }));
 
     test('Successful sign in', async ({ page }) => {
+
         await signInForm.loginWithCredentials(usersList.mainUser.email, usersList.mainUser.password);
-        await expect(page.locator('h1', { hasText: 'Garage' })).toBeVisible();
+        await test.step('Verify Garage Page is open', async () => {
+            await expect(page.locator('h1', { hasText: 'Garage' })).toBeVisible();
+        })
     })
 
     test('Sign in without email', async () => {
@@ -59,7 +65,7 @@ test.describe('Without POM', () => {
             loginButton = page.getByText('Login');
         })
 
-        test('Successful sign in', async ({ page }) => {
+        test('Successful sign in 1', async ({ page }) => {
             // const modelDropdown = page.locator('#addModelDropdown').or(page.locator('#editModelDropdown'));
 
             await signInButton.click();
