@@ -47,6 +47,12 @@ test.describe('using fixtures', () => {
             await garageAsUserWithRemovingCars.addNewCar('Audi', 'A8', '999');
             await garageAsUserWithRemovingCars.verifyLastAddedCarName('Audi A8');
         })
+
+        test('Add Audi A8 with state', async ({ garageAsUserStorageState }) => {
+            await garageAsUserStorageState.verifyPageIsOpen();
+            await garageAsUserStorageState.addNewCar('Audi', 'A8', '999');
+            await garageAsUserStorageState.verifyLastAddedCarName('Audi A8');
+        })
     })
 
 

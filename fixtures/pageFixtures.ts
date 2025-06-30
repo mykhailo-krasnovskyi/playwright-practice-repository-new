@@ -7,6 +7,7 @@ import { usersList } from "../test-data/users";
 type PageFixtures = {
     garagePage: GaragePage,
     garageAsUserWithRemovingCars: GaragePage,
+    garageAsUserStorageState: GaragePage
 
 };
 
@@ -31,7 +32,15 @@ export const test = base.extend<PageFixtures>({
         await page.locator('//button[@class="btn btn-danger"]').click();
     },
 
-
+    garageAsUserStorageState: async ({ browser }, use) => {
+        const context = await browser.newContext({ storageState: 'test-data/states/mainUserState.json' });
+        const page = await context.newPage();
+        const garagePage = new GaragePage(page);
+        await garagePage.open();
+        await garagePage.verifyPageIsOpen();
+        await use(garagePage);
+        await context.close();
+    }
 
 })
 
