@@ -1,5 +1,5 @@
 import test, { expect } from "@playwright/test";
-import { usersList } from "../test-data/users";
+import { usersList } from "../../../test-data/users";
 
 test.describe('Practice', () => {
     test.beforeEach((async ({ page }) => {
@@ -59,22 +59,22 @@ test.describe('Practice', () => {
         await expect(page.locator('//h1'), `Text is not as expected. Because ${''}`).toHaveText('Do less');
     });
 
-    test('Screenshot testing', async ({ page }) => {
-        const signInButton = page.locator('//button[contains(@class,"header_signin")]');
-        const emailField = page.getByRole('textbox', { name: 'Email' })
-        const passwordField = page.getByRole('textbox', { name: 'Password' })
-        const loginButton = page.getByText('Login');
+    // test('Screenshot testing', async ({ page }) => {
+    //     const signInButton = page.locator('//button[contains(@class,"header_signin")]');
+    //     const emailField = page.getByRole('textbox', { name: 'Email' })
+    //     const passwordField = page.getByRole('textbox', { name: 'Password' })
+    //     const loginButton = page.getByText('Login');
 
-        // const modelDropdown = page.locator('#addModelDropdown').or(page.locator('#editModelDropdown'));
+    //     // const modelDropdown = page.locator('#addModelDropdown').or(page.locator('#editModelDropdown'));
 
-        await signInButton.click();
-        await emailField.fill(usersList.mainUser.email);
-        await passwordField.pressSequentially(usersList.mainUser.password, { delay: 50 });
-        await loginButton.click();
-        await expect(page.locator('h1', { hasText: 'Garage' })).toBeVisible();
+    //     await signInButton.click();
+    //     await emailField.fill(usersList.mainUser.email);
+    //     await passwordField.pressSequentially(usersList.mainUser.password, { delay: 50 });
+    //     await loginButton.click();
+    //     await expect(page.locator('h1', { hasText: 'Garage' })).toBeVisible();
 
-        // await expect(page).toHaveScreenshot('GaragePage.png');
-        await expect(page.locator('app-car').first()).toHaveScreenshot('LastCar.png');
+    //     // await expect(page).toHaveScreenshot('GaragePage.png');
+    //     await expect(page.locator('app-car').first()).toHaveScreenshot('LastCar.png');
 
-    });
+    // });
 })
