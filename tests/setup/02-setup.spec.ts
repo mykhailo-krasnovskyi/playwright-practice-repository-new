@@ -14,6 +14,7 @@ test.describe('Create users', () => {
         const { name, lastName, email, password, repeatPassword } = user;
 
         const response = await usersController.registerUser(name, lastName, email, password, repeatPassword);
+        console.log(await response.json());
         expect(response.status()).toBe(201);
     })
 })
