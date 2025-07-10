@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+require('dotenv').config();
 
 /**
  * Read environment variables from file.
@@ -18,11 +19,11 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: 4,
+  retries: 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: "allure-playwright",
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -33,18 +34,38 @@ export default defineConfig({
     // trace: 'on',
     // video: 'on',
     // screenshot: 'on'
-    baseURL: 'https://qauto.forstudy.space/',
+    baseURL: process.env.BASE_URL,
+    video: 'retain-on-failure',
+    trace: 'retain-on-failure',
     httpCredentials: {
-      'username': 'guest',
-      'password': 'welcome2qauto'
+      'username': process.env.HTTP_CREDENTIALS_USERNAME!,
+      'password': process.env.HTTP_CREDENTIALS_PASSWORD!
     },
   },
 
   /* Configure projects for major browsers */
   projects: [
+
+    {
+      name: 'setup',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: '*/setup/**.ts',
+      workers: 1
+
+    },
     {
       name: 'smoke',
       use: { ...devices['Desktop Chrome'] },
+      testIgnore: '*/setup/**.ts',
+      testMatch: '*/e2e/**.ts',
+      dependencies: ['setup'],
+
+    },
+    {
+      name: 'api',
+      testIgnore: '*/setup/**.ts',
+      testMatch: '*/api/**.ts',
+      dependencies: ['setup']
     },
 
     // {
